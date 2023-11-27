@@ -1,7 +1,9 @@
 package com.edsa.challenge.service;
 
-import com.edsa.challenge.dao.VehicleRepository;
 import com.edsa.challenge.dto.VehicleDTO;
+import com.edsa.challenge.mapper.VehicleMapper;
+import com.edsa.challenge.repository.VehicleRepository;
+import com.edsa.challenge.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +19,14 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public VehicleDTO getVehicleByPlate (String plateId) {
-        Optional<VehicleDTO> vehicleFound = this.vehicleRepository.getVehicleDTOByPlateId(plateId);
-    }
-
-    public VehicleDTO addNewVehicle (VehicleDTO vehicle) {
+    public Vehicle addNewVehicle (Vehicle vehicle) {
         return this.vehicleRepository.save(vehicle);
     }
 
-    public VehicleDTO updateVehicle (){
-        this.vehicleRepository.
+    public Vehicle updateVehicle (VehicleDTO vehicleDTO, String plateId) {
+        Optional<Vehicle> vehicleFound = this.vehicleRepository.findByPlateId(plateId);
+        VehicleMapper mapper = new VehicleMapper();
+        mapper.getMapperForDTO().map(vehicleDTO, vehicleFound);
+        return this.vehicleRepository.save(vehicleFound.get());
     }
 }

@@ -1,14 +1,16 @@
-package com.edsa.challenge.dto;
+package com.edsa.challenge.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Entity
+@Data
 @NoArgsConstructor
 @Table(name="services")
-public class ServiceDTO {
+public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +19,7 @@ public class ServiceDTO {
 
     @ManyToOne
     @JoinColumn(name = "plate_id", referencedColumnName = "plate_id")
-    private VehicleDTO vehicle;
+    private Vehicle vehicle;
 
     @Column(name = "date")
     private Date date;
