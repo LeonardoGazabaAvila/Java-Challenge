@@ -2,33 +2,57 @@ package com.edsa.challenge.mapper;
 
 import com.edsa.challenge.dto.VehicleDTO;
 import com.edsa.challenge.model.Vehicle;
-import org.modelmapper.Condition;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VehicleMapper {
-    private final ModelMapper mapperForDTO;
+    private static final ModelMapper mapper = new ModelMapper();
 
-    public VehicleMapper () {
-        this.mapperForDTO = new ModelMapper();
-        this.configureMapperForDTO();
+    private static void configureDtoSourcesNotNull () {
+
+        mapper.typeMap(VehicleDTO.class, Vehicle.class)
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getPlateId, Vehicle::setPlateId))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getChasisId, Vehicle::setChasisId))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getEngineId, Vehicle::setEngineId))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getBrand, Vehicle::setBrand))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getColor, Vehicle::setColor))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getManufactureDate, Vehicle::setManufactureDate));
     }
 
-    public void configureMapperForDTO () {
+    private static void configureEntityBasicMappings () {
 
-        Condition sourceNotNull = asd -> asd.getSource() != null;
-        this.mapperForDTO.typeMap(VehicleDTO.class, Vehicle.class)
-                .addMapping(VehicleDTO::getPlateId, Vehicle::setPlateId)
-                .addMapping(VehicleDTO::getChasisId, Vehicle::setChasisId)
-                .addMapping(VehicleDTO::getEngineId, Vehicle::setEngineId)
-                .addMapping(VehicleDTO::getBrand, Vehicle::setBrand)
-                .addMapping(VehicleDTO::getColor, Vehicle::setColor)
-                .addMapping(VehicleDTO::getManufactureDate, Vehicle::setManufactureDate);
+        mapper.typeMap(Vehicle.class, VehicleDTO.class)
+                .addMapping(Vehicle::getPlateId, VehicleDTO::setPlateId)
+                .addMapping(Vehicle::getChasisId, VehicleDTO::setChasisId)
+                .addMapping(Vehicle::getEngineId, VehicleDTO::setEngineId)
+                .addMapping(Vehicle::getBrand, VehicleDTO::setBrand)
+                .addMapping(Vehicle::getColor, VehicleDTO::setColor)
+                .addMapping(Vehicle::getManufactureDate, VehicleDTO::setManufactureDate)
+                .addMapping(Vehicle::getServices, VehicleDTO::setServices);
     }
 
-    public ModelMapper getMapperForDTO () {
-        return this.mapperForDTO;
+    public static void mapToEntityNotNullSources (VehicleDTO source, Vehicle destination) {
+
+        configureDtoSourcesNotNull();
+        mapper.map(source, destination);
+    }
+
+    public static Vehicle mapToEntityNotNullSources (VehicleDTO source) {
+        configureDtoSourcesNotNull();
+        return mapper.map(source, Vehicle.class);
+    }
+
+    public static void mapToDTO (Vehicle source, VehicleDTO destination) {
+
+        configureEntityBasicMappings();
+        mapper.map(source, destination);
+    }
+
+    public static VehicleDTO mapToDTO (Vehicle source) {
+
+        configureEntityBasicMappings();
+        return mapper.map(source, VehicleDTO.class);
     }
 }

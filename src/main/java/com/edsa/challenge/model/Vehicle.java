@@ -75,8 +75,4 @@ public class Vehicle {
                 .findFirst()
                 .orElse(null);
     }
-
-    public void updateThisVehicle (VehicleDTO vehicleDTO) {
-
-    }
 }
