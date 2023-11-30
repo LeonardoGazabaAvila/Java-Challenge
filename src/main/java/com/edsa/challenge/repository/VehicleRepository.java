@@ -8,4 +8,8 @@ import java.util.Optional;
 public interface VehicleRepository extends ListCrudRepository<Vehicle,String> {
 
     public Optional<Vehicle> findByPlateId(String plateId);
+
+    public void deleteByPlateId(String plateId);
+
+
 }

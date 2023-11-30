@@ -21,7 +21,7 @@ public class VehicleMapper {
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getManufactureDate, Vehicle::setManufactureDate));
     }
 
-    private static void configureEntityBasicMappings () {
+    private static void configureEntityFullMapping() {
 
         mapper.typeMap(Vehicle.class, VehicleDTO.class)
                 .addMapping(Vehicle::getPlateId, VehicleDTO::setPlateId)
@@ -30,7 +30,7 @@ public class VehicleMapper {
                 .addMapping(Vehicle::getBrand, VehicleDTO::setBrand)
                 .addMapping(Vehicle::getColor, VehicleDTO::setColor)
                 .addMapping(Vehicle::getManufactureDate, VehicleDTO::setManufactureDate)
-                .addMapping(Vehicle::getServices, VehicleDTO::setServices);
+                .addMapping(Vehicle::getMaintenances, VehicleDTO::setMaintenances);
     }
 
     public static void mapToEntityNotNullSources (VehicleDTO source, Vehicle destination) {
@@ -46,13 +46,13 @@ public class VehicleMapper {
 
     public static void mapToDTO (Vehicle source, VehicleDTO destination) {
 
-        configureEntityBasicMappings();
+        configureEntityFullMapping();
         mapper.map(source, destination);
     }
 
     public static VehicleDTO mapToDTO (Vehicle source) {
 
-        configureEntityBasicMappings();
+        configureEntityFullMapping();
         return mapper.map(source, VehicleDTO.class);
     }
 }

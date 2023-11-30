@@ -1,6 +1,6 @@
 package com.edsa.challenge.dto;
 
-import com.edsa.challenge.model.Service;
+import com.edsa.challenge.model.Maintenance;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
@@ -26,20 +26,19 @@ public class VehicleDTO {
 
     private String color;
 
-    @Null
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date manufactureDate;
 
-    private List<Service> services;
+    private List<Maintenance> maintenances;
 
-    public void setService (Service newService) {
-        this.services.add(newService);
+    public void setMaintenance (Maintenance newMaintenance) {
+        this.maintenances.add(newMaintenance);
     }
 
-    public Service getService (Service service) {
-        return this.services.stream()
-                .filter(s -> s.equals(service))
+    public Maintenance getMaintenance (Maintenance maintenance) {
+        return this.maintenances.stream()
+                .filter(s -> s.equals(maintenance))
                 .findFirst()
                 .orElse(null);
     }

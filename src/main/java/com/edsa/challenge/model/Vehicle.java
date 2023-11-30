@@ -1,17 +1,14 @@
 package com.edsa.challenge.model;
 
-import com.edsa.challenge.dto.VehicleDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +51,7 @@ public class Vehicle {
     private Date manufactureDate;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
-    private List<Service> services;
+    private List<Maintenance> maintenances;
 
     public Vehicle (@Nonnull String plateId, @Nonnull String chasisId, @Nonnull String engineId, @Nonnull String brand, String color, @Nonnull Date manufactureDate) {
         this.plateId = plateId;
@@ -65,13 +62,13 @@ public class Vehicle {
         this.manufactureDate = manufactureDate;
     }
 
-    public void setService (Service newService) {
-        this.services.add(newService);
+    public void setService (Maintenance newMaintenance) {
+        this.maintenances.add(newMaintenance);
     }
 
-    public Service getService (Service service) {
-        return this.services.stream()
-                .filter(s -> s.equals(service))
+    public Maintenance getService (Maintenance maintenance) {
+        return this.maintenances.stream()
+                .filter(s -> s.equals(maintenance))
                 .findFirst()
                 .orElse(null);
     }

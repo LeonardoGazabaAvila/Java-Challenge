@@ -29,4 +29,9 @@ public class VehicleService {
         VehicleMapper.mapToEntityNotNullSources(vehicleDTO, vehicleFound);
         return this.vehicleRepository.save(vehicleFound);
     }
+
+    public void deleteVehicle (String plateId) {
+
+        this.vehicleRepository.deleteByPlateId(plateId);
+    }
 }
