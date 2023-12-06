@@ -27,6 +27,10 @@ public class Maintenance {
     @NotNull
     private Vehicle vehicle;
 
+    @Column(name = "code")
+    @NotNull
+    private String code;
+
     @Column(name = "date")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")

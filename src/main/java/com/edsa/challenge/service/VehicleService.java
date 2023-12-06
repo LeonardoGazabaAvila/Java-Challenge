@@ -24,8 +24,7 @@ public class VehicleService {
     }
 
     public Vehicle updateVehicle (VehicleDTO vehicleDTO, String plateId) {
-        Optional<Vehicle> optionalFound = this.vehicleRepository.findByPlateId(plateId);
-        Vehicle vehicleFound = optionalFound.get();
+        Vehicle vehicleFound = this.vehicleRepository.getVehicleByPlateId(plateId);
         VehicleMapper.mapToEntityNotNullSources(vehicleDTO, vehicleFound);
         return this.vehicleRepository.save(vehicleFound);
     }

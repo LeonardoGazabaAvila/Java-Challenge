@@ -4,6 +4,9 @@ import com.edsa.challenge.dto.VehicleDTO;
 import com.edsa.challenge.model.Vehicle;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.builder.ConfigurableConditionExpression;
+import org.modelmapper.spi.DestinationSetter;
+import org.modelmapper.spi.SourceGetter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,6 +43,7 @@ public class VehicleMapper {
     }
 
     public static Vehicle mapToEntityNotNullSources (VehicleDTO source) {
+
         configureDtoSourcesNotNull();
         return mapper.map(source, Vehicle.class);
     }

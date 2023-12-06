@@ -25,22 +25,17 @@ public class VehicleController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<VehicleDTO> addNewVehicle (@RequestBody @Valid Vehicle vehicle) {
-
-        Vehicle savedVehicle = this.vehicleService.addNewVehicle(vehicle);
-        return ResponseEntity.ok(VehicleMapper.mapToDTO(savedVehicle));
+        return ResponseEntity.ok(VehicleMapper.mapToDTO(this.vehicleService.addNewVehicle(vehicle)));
     }
 
     @PatchMapping(path = "/{plateId}/update")
     public ResponseEntity<Vehicle> updateVehicle (@RequestBody @Valid VehicleDTO vehicleDTO,
                                                   @PathVariable @Pattern(regexp = "(([A-Z]{2}[0-9]{3}[A-Z]{2})|([A-Z]{3}[0-9]{3}))", message = "Invalid sequence for plate id") String plateId) {
-
-        VehicleDTO updatedDTO = new VehicleDTO();
-        return ResponseEntity.ok(this.vehicleService.updateVehicle(vehicleDTO, plateId));
+        return ResponseEntity.ok(this.vehicleService.updateVehicle(new VehicleDTO(), plateId));
     }
 
     @DeleteMapping(path = "/{plateId}/delete")
     public ResponseEntity deleteVehicle (@PathVariable @Pattern(regexp = "(([A-Z]{2}[0-9]{3}[A-Z]{2})|([A-Z]{3}[0-9]{3}))", message = "Invalid sequence for plate id") String plateId) {
-
         this.vehicleService.deleteVehicle(plateId);
         return ResponseEntity.ok().build();
     }

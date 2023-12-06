@@ -21,7 +21,6 @@ public class MaintenanceController {
 
     @PostMapping(path = "/add")
     public ResponseEntity<Maintenance> addNewMaintenance (@RequestBody @Valid Maintenance maintenance) {
-
         return ResponseEntity.ok(this.maintenanceService.addNewMaintenance(maintenance));
     }
 

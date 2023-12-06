@@ -5,5 +5,5 @@ import org.springframework.data.repository.ListCrudRepository;
 
 public interface MaintenanceRepository extends ListCrudRepository<Maintenance, Long> {
 
-
+    public Maintenance getMaintenanceByCode(String code);
 }
