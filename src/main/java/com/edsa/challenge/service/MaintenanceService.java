@@ -19,6 +19,10 @@ public class MaintenanceService {
         this.maintenanceRepository = maintenanceRepository;
     }
 
+    public Maintenance getMaintenanceByCode (String code) {
+        return this.maintenanceRepository.getMaintenanceByCode(code);
+    }
+
     public Maintenance addNewMaintenance (Maintenance maintenance) {
         return this.maintenanceRepository.save(maintenance);
     }
@@ -27,5 +31,9 @@ public class MaintenanceService {
         Maintenance maintenanceFound = this.maintenanceRepository.getMaintenanceByCode(maintenanceCode);
         MaintenanceMapper.mapToEntityNotNullSources(maintenanceDTO, maintenanceFound);
         return this.maintenanceRepository.save(maintenanceFound);
+    }
+
+    public void deleteMaintenanceByCode (String maintenanceCode) {
+        this.maintenanceRepository.deleteMaintenanceByCode(maintenanceCode);
     }
 }

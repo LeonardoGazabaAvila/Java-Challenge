@@ -19,18 +19,21 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
+    public Vehicle getVehicleByPlateId (String plateId) {
+        return this.vehicleRepository.getVehicleByPlateId(plateId);
+    }
+
     public Vehicle addNewVehicle (Vehicle vehicle) {
         return this.vehicleRepository.save(vehicle);
     }
 
-    public Vehicle updateVehicle (VehicleDTO vehicleDTO, String plateId) {
+    public Vehicle updateVehicleByPlateId (VehicleDTO vehicleDTO, String plateId) {
         Vehicle vehicleFound = this.vehicleRepository.getVehicleByPlateId(plateId);
         VehicleMapper.mapToEntityNotNullSources(vehicleDTO, vehicleFound);
         return this.vehicleRepository.save(vehicleFound);
     }
 
-    public void deleteVehicle (String plateId) {
-
+    public void deleteVehicleByPlateId (String plateId) {
         this.vehicleRepository.deleteByPlateId(plateId);
     }
 }

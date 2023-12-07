@@ -29,6 +29,7 @@ public class Maintenance {
 
     @Column(name = "code")
     @NotNull
+    @Id
     private String code;
 
     @Column(name = "date")
