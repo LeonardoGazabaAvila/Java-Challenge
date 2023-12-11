@@ -28,7 +28,7 @@ public class VehicleService {
     }
 
     public List<Vehicle> getAllVehiclesByMaintenanceDate(List<Maintenance> maintenances) {
-        
+
     }
 
     public Vehicle addNewVehicle (Vehicle vehicle) {
