@@ -3,10 +3,7 @@ package com.edsa.challenge.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -25,6 +22,7 @@ public class Maintenance {
     @ManyToOne
     @JoinColumn(name = "plate_id", referencedColumnName = "plate_id")
     @NotNull
+    @ToString.Exclude
     private Vehicle vehicle;
 
     @Column(name = "code")

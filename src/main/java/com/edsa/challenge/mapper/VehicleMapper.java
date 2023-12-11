@@ -4,31 +4,31 @@ import com.edsa.challenge.dto.VehicleDTO;
 import com.edsa.challenge.model.Vehicle;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.builder.ConfigurableConditionExpression;
-import org.modelmapper.spi.DestinationSetter;
-import org.modelmapper.spi.SourceGetter;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class VehicleMapper {
     private static final ModelMapper mapper = new ModelMapper();
 
-    private static void configureDtoSourcesNotNull () {
+    private static void configureSrcDtoSourcesNotNull() {
 
         mapper.typeMap(VehicleDTO.class, Vehicle.class)
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getPlateId, Vehicle::setPlateId))
-                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getChasisId, Vehicle::setChasisId))
+                .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getChasisId, Vehicle::setChassisId))
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getEngineId, Vehicle::setEngineId))
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getBrand, Vehicle::setBrand))
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getColor, Vehicle::setColor))
                 .addMappings(mapper -> mapper.when(Conditions.isNotNull()).map(VehicleDTO::getManufactureDate, Vehicle::setManufactureDate));
     }
 
-    private static void configureEntityFullMapping() {
+    private static void configureSrcEntityFullMapping() {
 
         mapper.typeMap(Vehicle.class, VehicleDTO.class)
                 .addMapping(Vehicle::getPlateId, VehicleDTO::setPlateId)
-                .addMapping(Vehicle::getChasisId, VehicleDTO::setChasisId)
+                .addMapping(Vehicle::getChassisId, VehicleDTO::setChasisId)
                 .addMapping(Vehicle::getEngineId, VehicleDTO::setEngineId)
                 .addMapping(Vehicle::getBrand, VehicleDTO::setBrand)
                 .addMapping(Vehicle::getColor, VehicleDTO::setColor)
@@ -38,25 +38,35 @@ public class VehicleMapper {
 
     public static void mapToEntityNotNullSources (VehicleDTO source, Vehicle destination) {
 
-        configureDtoSourcesNotNull();
+        configureSrcDtoSourcesNotNull();
         mapper.map(source, destination);
     }
 
     public static Vehicle mapToEntityNotNullSources (VehicleDTO source) {
 
-        configureDtoSourcesNotNull();
+        configureSrcDtoSourcesNotNull();
         return mapper.map(source, Vehicle.class);
     }
 
     public static void mapToDTO (Vehicle source, VehicleDTO destination) {
 
-        configureEntityFullMapping();
+        configureSrcEntityFullMapping();
         mapper.map(source, destination);
     }
 
     public static VehicleDTO mapToDTO (Vehicle source) {
 
-        configureEntityFullMapping();
+        configureSrcEntityFullMapping();
         return mapper.map(source, VehicleDTO.class);
+    }
+
+    public static List<VehicleDTO> mapToListDTO (List<Vehicle> vehicles) {
+
+        configureSrcEntityFullMapping();
+        List<VehicleDTO> vehicleDTOS = new ArrayList<>();
+        for (Vehicle vehicle : vehicles) {
+            vehicleDTOS.add(mapToDTO(vehicle));
+        }
+        return vehicleDTOS;
     }
 }

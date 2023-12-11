@@ -29,9 +29,9 @@ public class Vehicle {
     @NotNull
     private String plateId;
 
-    @Column(name = "chasis_id")
+    @Column(name = "chassis_id")
     @NotNull
-    private String chasisId;
+    private String chassisId;
 
     @Column(name = "engine_id")
     @NotNull
@@ -53,9 +53,9 @@ public class Vehicle {
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
     private List<Maintenance> maintenances;
 
-    public Vehicle (@Nonnull String plateId, @Nonnull String chasisId, @Nonnull String engineId, @Nonnull String brand, String color, @Nonnull Date manufactureDate) {
+    public Vehicle (@Nonnull String plateId, @Nonnull String chassisId, @Nonnull String engineId, @Nonnull String brand, String color, @Nonnull Date manufactureDate) {
         this.plateId = plateId;
-        this.chasisId = chasisId;
+        this.chassisId = chassisId;
         this.engineId = engineId;
         this.brand = brand;
         this.color = color;

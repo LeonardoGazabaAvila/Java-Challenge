@@ -7,6 +7,8 @@ import com.edsa.challenge.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +23,10 @@ public class MaintenanceService {
 
     public Maintenance getMaintenanceByCode (String code) {
         return this.maintenanceRepository.getMaintenanceByCode(code);
+    }
+
+    public List<Maintenance> getMaintenancesByDate (Date date) {
+        return this.maintenanceRepository.getMaintenancesByDate(date);
     }
 
     public Maintenance addNewMaintenance (Maintenance maintenance) {
