@@ -21,12 +21,10 @@ import java.util.List;
 @RequestMapping(value = "/vehicle", consumes = "application/json")
 public class VehicleController {
 
-    private final MaintenanceController maintenanceController;
     private final VehicleService vehicleService;
 
     @Autowired
-    public VehicleController (MaintenanceController maintenanceController, VehicleService vehicleService)  {
-        this.maintenanceController = maintenanceController;
+    public VehicleController (VehicleService vehicleService)  {
         this.vehicleService = vehicleService;
     }
 
@@ -38,15 +36,11 @@ public class VehicleController {
     }
 
     @GetMapping(path = "/all-maintained")
-    public ResponseEntity<List<VehicleDTO>> getAllVehiclesByMaintenanceDate (@RequestParam(name = "date", required = true)
+    public ResponseEntity<List<VehicleDTO>> getAllVehiclesByMaintenanceDate (@RequestParam(name = "date")
                                                                                 @JsonFormat(pattern = "dd/MM/yyyy")
                                                                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
                                                                                 Date maintenanceDate) {
-
-        return ResponseEntity.ok(VehicleMapper.mapToListDTO(
-                this.vehicleService.getAllVehiclesByMaintenanceDate(
-                        this.maintenanceController.getMaintenancesByDate(maintenanceDate)
-                )));
+        return ResponseEntity.ok(VehicleMapper.mapToListDTO(this.vehicleService.getAllVehiclesByMaintenanceDate(maintenanceDate)));
     }
 
     @PostMapping(path = "/add")
@@ -57,12 +51,9 @@ public class VehicleController {
     }
 
     @PatchMapping(path = "/{plateId}/update")
-    public ResponseEntity<Vehicle> updateVehicleByPlateId (@RequestBody
-                                                               @Valid
-                                                               VehicleDTO vehicleDTO,
-                                                           @PathVariable
-                                                           @Pattern(regexp = "(([A-Z]{2}[0-9]{3}[A-Z]{2})|([A-Z]{3}[0-9]{3}))", message = "Invalid sequence for plate id")
-                                                           String plateId) {
+    public ResponseEntity<Vehicle> updateVehicleByPlateId (@PathVariable
+                                                               @Pattern(regexp = "(([A-Z]{2}[0-9]{3}[A-Z]{2})|([A-Z]{3}[0-9]{3}))", message = "Invalid sequence for plate id")
+                                                               String plateId) {
         return ResponseEntity.ok(this.vehicleService.updateVehicleByPlateId(new VehicleDTO(), plateId));
     }
 

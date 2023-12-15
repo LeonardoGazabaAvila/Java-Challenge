@@ -2,7 +2,6 @@ package com.edsa.challenge.dto;
 
 import com.edsa.challenge.model.Maintenance;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

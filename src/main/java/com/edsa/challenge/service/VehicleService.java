@@ -2,16 +2,13 @@ package com.edsa.challenge.service;
 
 import com.edsa.challenge.dto.VehicleDTO;
 import com.edsa.challenge.mapper.VehicleMapper;
-import com.edsa.challenge.model.Maintenance;
 import com.edsa.challenge.repository.VehicleRepository;
 import com.edsa.challenge.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VehicleService {
@@ -27,8 +24,8 @@ public class VehicleService {
         return this.vehicleRepository.getVehicleByPlateId(plateId);
     }
 
-    public List<Vehicle> getAllVehiclesByMaintenanceDate(List<Maintenance> maintenances) {
-
+    public List<Vehicle> getAllVehiclesByMaintenanceDate(Date date) {
+        return this.vehicleRepository.getVehiclesWithSpecificMaintenanceDate(date);
     }
 
     public Vehicle addNewVehicle (Vehicle vehicle) {

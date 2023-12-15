@@ -42,18 +42,6 @@ public class VehicleMapper {
         mapper.map(source, destination);
     }
 
-    public static Vehicle mapToEntityNotNullSources (VehicleDTO source) {
-
-        configureSrcDtoSourcesNotNull();
-        return mapper.map(source, Vehicle.class);
-    }
-
-    public static void mapToDTO (Vehicle source, VehicleDTO destination) {
-
-        configureSrcEntityFullMapping();
-        mapper.map(source, destination);
-    }
-
     public static VehicleDTO mapToDTO (Vehicle source) {
 
         configureSrcEntityFullMapping();

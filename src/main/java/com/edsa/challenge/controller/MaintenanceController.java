@@ -4,16 +4,11 @@ import com.edsa.challenge.dto.MaintenanceDTO;
 import com.edsa.challenge.mapper.MaintenanceMapper;
 import com.edsa.challenge.model.Maintenance;
 import com.edsa.challenge.service.MaintenanceService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @Validated
@@ -53,9 +48,5 @@ public class MaintenanceController {
     public ResponseEntity<Maintenance> deleteMaintenanceByCode (@PathVariable String maintenanceCode) {
         this.maintenanceService.deleteMaintenanceByCode(maintenanceCode);
         return ResponseEntity.ok().build();
-    }
-
-    public List<Maintenance> getMaintenancesByDate (Date date) {
-        return this.maintenanceService.getMaintenancesByDate(date);
     }
 }

@@ -8,9 +8,8 @@ import java.util.List;
 
 public interface MaintenanceRepository extends ListCrudRepository<Maintenance, Long> {
 
-    public Maintenance getMaintenanceByCode(String code);
+    Maintenance getMaintenanceByCode(String code);
 
-    public void deleteMaintenanceByCode (String maintenanceCode);
+    void deleteMaintenanceByCode (String maintenanceCode);
 
-    public List<Maintenance> getMaintenancesByDate (Date date);
 }
